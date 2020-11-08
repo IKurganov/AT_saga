@@ -1,0 +1,11 @@
+# Default ignored files
+.idea/
+logs/
+target/
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../:\Users\IKurganov\IdeaProjects\AT_saga\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
