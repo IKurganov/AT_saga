@@ -1,4 +1,4 @@
-package home.atests;
+package home.atests.model;
 
 public class Letter {
     private final String message;

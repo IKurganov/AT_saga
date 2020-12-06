@@ -1,11 +1,8 @@
-package home.atests;
+package home.atests.appmanager;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import home.atests.model.Letter;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.enabled;
@@ -13,30 +10,9 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class TestBase {
+public class LetterPage {
 
-    @BeforeEach
-    public void setUp() {
-        // пока для упрощения запускаю только хром
-        Configuration.browser = "chrome";
-        Configuration.startMaximized = true;
-        Configuration.reportsFolder = "target/reports";
-        // открываем нужную страницу в браузере и вводим логин
-        openPageAndInsertLogin("atkurganov1994");
-    }
-
-    private void openPageAndInsertLogin(String username) {
-        open("https://mail.ru/");
-        $(By.name("login"))
-                .shouldBe(Condition.visible)
-                .setValue(username);
-        $(By.id("mailbox:submit-button"))
-                .shouldBe(Condition.enabled)
-                .shouldHave(Condition.text("Ввести пароль"))
-                .click();
-    }
-
-    protected void writeAndTryToSendLetter(Letter letter) {
+    public void writeAndTryToSendLetter(Letter letter) {
         $("a.compose-button_white")
                 .shouldBe(Condition.visible.because("Кнопка Написать письмо должна отображаться"))
                 .click();
@@ -54,24 +30,5 @@ public class TestBase {
         lowerForm.$("div.compose-app__buttons span[title='Отправить']")
                 .shouldBe(enabled.because("Кнопка для отправки будет активна"))
                 .click();
-    }
-
-    protected void setPassword(String password) {
-        $(By.name("password"))
-                .shouldBe(Condition.visible)
-                .clear();
-        $(By.name("password"))
-                .shouldBe(Condition.visible)
-                .setValue(password);
-        $(By.id("mailbox:submit-button"))
-                .shouldBe(Condition.enabled)
-                .shouldHave(Condition.text("Войти"))
-                .click();
-
-    }
-
-    @AfterEach
-    public void finishTesting() {
-        WebDriverRunner.getWebDriver().quit();
     }
 }
