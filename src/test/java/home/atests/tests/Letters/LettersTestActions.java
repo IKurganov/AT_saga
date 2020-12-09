@@ -1,8 +1,6 @@
 package home.atests.tests.Letters;
 
-import com.codeborne.selenide.Condition;
-import home.atests.appmanager.LoginPage;
-import org.openqa.selenium.By;
+import home.atests.pages.MainPage;
 
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -10,15 +8,13 @@ import static com.codeborne.selenide.Selenide.open;
 
 public class LettersTestActions {
 
-    static LoginPage loginPage = new LoginPage();
-
-    public static void openPageAndInsertLogin(String username) {
+    public static MainPage openPageAndInsertLogin(String username) {
         open("https://mail.ru/");
-        loginPage.setLogin(username);
+        MainPage mainPage = new MainPage();
+        mainPage.setLogin(username);
+        //do something more than
+        return mainPage;
     }
 
-    public static void justSetPassword(String password){
-        loginPage.setPassword(password);
-    }
-
+    // and again - do something more than
 }

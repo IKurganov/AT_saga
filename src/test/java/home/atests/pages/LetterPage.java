@@ -1,9 +1,8 @@
-package home.atests.appmanager;
+package home.atests.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import home.atests.model.Letter;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.enabled;
 import static com.codeborne.selenide.Condition.visible;
