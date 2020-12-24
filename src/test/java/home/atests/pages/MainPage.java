@@ -1,22 +1,27 @@
 package home.atests.pages;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import home.atests.model.User;
 import org.openqa.selenium.By;
 
+import java.util.concurrent.TimeUnit;
+
 import static com.codeborne.selenide.Selenide.$;
+import static org.awaitility.Awaitility.await;
 
 public class MainPage {
 
     private SelenideElement loginBox = $(By.id("mailbox"));
     private SelenideElement logpassForm = loginBox.$("form");
-    private SelenideElement enterButton = logpassForm.$("button");
+    private SelenideElement enterLoginButton = logpassForm.$("button.button");
+    private SelenideElement enterPasswordButton = logpassForm.$("button.second-button");
     private SelenideElement loginError = logpassForm.$("div.error");
+    private SelenideElement loginField = logpassForm.$("input.email-input");
+    private SelenideElement passwordField = logpassForm.$("input.password-input");
 
     public MainPage setLogin(String username) {
-        $(By.name("login"))
+        loginField
                 .shouldBe(Condition.visible)
                 .setValue(username);
         clickLoginButton();
@@ -24,20 +29,19 @@ public class MainPage {
     }
 
     public MainPage setPassword(String password) {
-        $(By.name("password"))
+        passwordField
                 .shouldBe(Condition.visible)
                 .clear();
-        $(By.name("password"))
-                .shouldBe(Condition.visible)
-                .setValue(password);
-        enterButton.shouldBe(Condition.enabled)
+        passwordField.setValue(password);
+        enterPasswordButton
+                .shouldBe(Condition.enabled)
                 .shouldHave(Condition.text("Войти"))
                 .click();
         return this;
     }
 
     public void clickLoginButton() {
-        enterButton.shouldBe(Condition.enabled)
+        enterLoginButton.shouldBe(Condition.enabled)
                 .shouldHave(Condition.text("Ввести пароль"))
                 .click();
     }
@@ -49,13 +53,16 @@ public class MainPage {
     }
 
     public String getErrorText() {
+        await("Ждем, пока ошибка появится")
+                .pollInSameThread()
+                .atMost(500, TimeUnit.MILLISECONDS)
+                .until(loginError::exists);
         return loginError
                 .shouldBe(Condition.visible.because("Почта должна показать, что пользователь ввел не те данные"))
                 .text();
     }
 
-    public Boolean isErrorVisible() {
-        return loginError.isDisplayed();
+    public Boolean isErrorDisappear() {
+        return !loginError.isDisplayed();
     }
-
 }
