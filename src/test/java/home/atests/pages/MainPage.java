@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import java.util.concurrent.TimeUnit;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static org.awaitility.Awaitility.await;
 
 public class MainPage {
@@ -24,11 +25,19 @@ public class MainPage {
         loginField
                 .shouldBe(Condition.visible)
                 .setValue(username);
-        clickLoginButton();
+        clickConfirmPasswordButton();
         return this;
     }
 
     public MainPage setPassword(String password) {
+        passwordField
+                .shouldBe(Condition.visible)
+                .clear();
+        passwordField.setValue(password);
+        return this;
+    }
+
+    public MainPage setPasswordAndClickLogin(String password) {
         passwordField
                 .shouldBe(Condition.visible)
                 .clear();
@@ -40,17 +49,26 @@ public class MainPage {
         return this;
     }
 
-    public void clickLoginButton() {
+    public void clickConfirmPasswordButton() {
         enterLoginButton.shouldBe(Condition.enabled)
                 .shouldHave(Condition.text("Ввести пароль"))
                 .click();
     }
 
+    public void clickEnterButton() {
+        enterPasswordButton
+                .shouldBe(Condition.enabled)
+                .shouldHave(Condition.text("Войти"))
+                .click();
+    }
+
     public void login(User user) {
+        open("https://mail.ru/");
         setLogin(user.getLogin());
         setPassword(user.getPassword());
-        clickLoginButton();
+        clickEnterButton();
     }
+
 
     public String getErrorText() {
         await("Ждем, пока ошибка появится")

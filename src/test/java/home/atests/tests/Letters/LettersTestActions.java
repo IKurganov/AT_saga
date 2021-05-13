@@ -15,6 +15,5 @@ public class LettersTestActions {
         //do something more than
         return mainPage;
     }
-
     // and again - do something more than
 }
