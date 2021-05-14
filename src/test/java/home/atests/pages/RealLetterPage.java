@@ -13,7 +13,8 @@ public class RealLetterPage {
     public String getMessage(){
         //return messageBox.$x("div[@data-signature-widget='container']/ancestor::div[2]").getText();
         // так не сработало
-        return $x("//div[@class = 'letter-body__body-content']//div[@data-signature-widget='container']/preceding-sibling::div[2]").getText();
+        //TODO id="style_16209847540115719604_BODY"
+        return messageBox.$x(".//div[@data-signature-widget='container']/preceding-sibling::div[2]").getText();
 
     }
 }

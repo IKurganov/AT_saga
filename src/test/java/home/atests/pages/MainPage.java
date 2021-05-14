@@ -25,7 +25,6 @@ public class MainPage {
         loginField
                 .shouldBe(Condition.visible)
                 .setValue(username);
-        clickConfirmPasswordButton();
         return this;
     }
 
@@ -65,6 +64,7 @@ public class MainPage {
     public void login(User user) {
         open("https://mail.ru/");
         setLogin(user.getLogin());
+        clickConfirmPasswordButton();
         setPassword(user.getPassword());
         clickEnterButton();
     }

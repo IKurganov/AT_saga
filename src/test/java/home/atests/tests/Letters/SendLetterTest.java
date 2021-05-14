@@ -50,7 +50,7 @@ public class SendLetterTest extends TestBase {
     }
 
     @Test
-    public void sendLetterTest() throws InterruptedException {
+    public void sendLetterTest() {
         logger.info("Проверим, что письмо уходит самому себе");
         MainPage mainPage = new MainPage();
         User user = new User(appProps.getProperty("loginValue"), appProps.getProperty("passwordValue"));

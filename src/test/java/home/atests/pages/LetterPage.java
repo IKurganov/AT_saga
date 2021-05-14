@@ -11,8 +11,10 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 
 public class LetterPage {
+
     SelenideElement mainForm = $("div.compose-windows div.compose-app_popup");
     SelenideElement upperForm = mainForm.$("div.compose-app__compose");
+    //TODO убрать шуд би
     SelenideElement lowerForm = mainForm.$("div.compose-app__footer")
             .shouldBe(Condition.visible.because("Также кроме формы будет отображаться панель с кнопками/действиями для письма"));
     SelenideElement mainText = upperForm.$x(".//div[contains(@class, 'editor_container')]//div[contains(@class, 'cke_editable_inline')]/div");
