@@ -14,19 +14,18 @@ public class AccountPage {
 
     private SelenideElement lettersActionsBox = $("div.sidebar");
     private SelenideElement writeLetterAndOtherActionsBox = lettersActionsBox.$("div.sidebar__header");
-    private SelenideElement writeLetterButton = writeLetterAndOtherActionsBox.$("a.compose-button_white");
+    private SelenideElement writeLetterButton;
     private SelenideElement userButton;
     private SelenideElement userLetters = $("div.dataset-letters");
     private SelenideElement userLettersForHimselfButton = $x("//span[text()='Письма себе']");
 
 
     public LetterPage clickWriteLetterButton(Letter letter) throws InterruptedException {
-        //TODO дикий костыль
-        Thread.sleep(1000);
-        writeLetterButton
+        writeLetterButton = writeLetterAndOtherActionsBox.$("a.compose-button_white").shouldBe(enabled);
                 /*.shouldBe(enabled.because("Кнопка Написать письмо должна отображаться"))
                 .scrollIntoView(true)*/
-                .click();
+
+        writeLetterButton.click();
         LetterPage letterPage = new LetterPage();
         letterPage.writeAndSendLetter(letter);
         return letterPage;
